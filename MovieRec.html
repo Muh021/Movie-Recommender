@@ -7,25 +7,25 @@
     <title>Movie Recommender</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f8;
-            color: #333;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000; /* Black background */
+        color: #fff; /* White text color */
+    }
+    .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #1a1a1a; /* Dark gray background for container */
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Lighter shadow */
+        border-radius: 8px;
+    }
+    h1 {
+        color: #ecf0f1; /* Light gray color for heading */
+        text-align: center;
+        margin-bottom: 30px;
+    }
         .genre-selector {
             display: flex;
             flex-wrap: wrap;
@@ -38,7 +38,7 @@
             padding: 12px 25px;
             border: none;
             border-radius: 20px;
-            background-color: #7f8c8d;
+            background-color: #34495e;
             color: white;
             font-weight: bold;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -54,7 +54,8 @@
             gap: 20px;
         }
         .movie {
-            border: 1px solid #ddd;
+            border: 1px solid #333;
+            background-color: #262626;
             border-radius: 8px;
             padding: 15px;
             width: calc(33.333% - 20px);
