@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .genre-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .genre-button {
+            cursor: pointer;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+        .genre-button:hover {
+            background-color: #e0e0e0;
+        }
+        .movies {
+            margin-top: 20px;
+        }
+        .movie {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        img {
+            max-height: 150px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommender</h1>
+        <div class="genre-selector">
+            <div class="genre-button" data-genre="action">Action</div>
+            <div class="genre-button" data-genre="comedy">Comedy</div>
+            <div class="genre-button" data-genre="drama">Drama</div>
+            <div class="genre-button" data-genre="fantasy">Fantasy</div>
+            <div class="genre-button" data-genre="horror">Horror</div>
+            <div class="genre-button" data-genre="thriller">Thriller</div>
+            <div class="genre-button" data-genre="mystery">Mystery</div>
+            <div class="genre-button" data-genre="adventure">Adventure</div>
+            <div class="genre-button" data-genre="sci-fi">Sci-fi</div>
+            <!-- Add more genres as needed -->
+        </div>
+        <div id="movieList" class="movies">
+            <!-- Recommended movies will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.genre-button').forEach(item => {
+            item.addEventListener('click', function() {
+                const genre = this.getAttribute('data-genre');
+                fetchMovies(genre); // Fetch movies when a genre is selected
+            });
+        });
+
+        function fetchMovies(genre) {
+            const apiKey = 'c22bbf27'; // Your OMDb API key
+            const url = `http://www.omdbapi.com/?s=${encodeURIComponent(genre)}&apikey=${apiKey}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    displayMovies(data.Search); // Display the movies
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    // Handle errors here (e.g., show a message to the user)
+                });
+        }
+
+        function displayMovies(movies) {
+            const movieList = document.getElementById('movieList');
+            movieList.innerHTML = ''; // Clear existing movies
+
+            if (movies) {
+                movies.forEach(movie => {
+                    const movieElement = document.createElement('div');
+                    movieElement.className = 'movie';
+                    movieElement.innerHTML = `
+                        <h3>${movie.Title}</h3>
+                        <p>Year: ${movie.Year}</p>
+                        <img src="${movie.Poster}" alt="Poster">
+                    `;
+                    movieList.appendChild(movieElement);
+                });
+            } else {
+                movieList.innerHTML = '<p>No movies found for this genre.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
